@@ -33,11 +33,10 @@
                         <a href="{{action('StudentController@edit', $row['id'])}}" class="btn btn-warning">Edit</a>
                     </td>
                     <td>
-                        <form method="post" class="delete_form" action="action{{('StudentController@destroy, $row['id'])}}">
+                        <form method="post" class="delete-form" action="{{action('StudentController@destroy', $row['id'])}}">
                             {{csrf_field()}}
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-danger">Delete</button>
-
                         </form>
                     </td>
                 </tr>
@@ -46,10 +45,11 @@
     </div>
 </div>
 
+
 <script>
     $(document).ready(function(){
         $('.delete_form').on('submit', function(){
-            if('You are sure you want to delete it?'){
+            if(confirm("Are you sure you want to delete it?")){
                 return true;
             }else{
                 return false;
@@ -57,5 +57,4 @@
         });
     });
 </script>
-
 @endsection

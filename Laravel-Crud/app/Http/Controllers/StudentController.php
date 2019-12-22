@@ -89,13 +89,12 @@ class StudentController extends Controller
             'first_name' => 'required',
             'last_name' => 'required'
         ]);
-
         $student = Student::find($id);
         $student->first_name = $request->get('first_name');
         $student->last_name = $request->get('last_name');
         $student->save();
+        return redirect()->route('student.index')->with('Success', 'Data Updated');        
 
-        return redirect()->route('student.index')->with('Success', 'Data Updated');
     }
 
     /**
@@ -108,6 +107,6 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
         $student->delete();
-        return redirect()->route('student.index')->with('Success', 'Delete Data');
+        return redirect()->route('student.index')->with('Success', 'Data Deleted');
     }
 }

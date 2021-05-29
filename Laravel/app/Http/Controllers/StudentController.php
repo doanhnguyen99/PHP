@@ -14,7 +14,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $students = Student::all()->toArray();
+        return view('student.index', compact('students'));
     }
 
     /**
@@ -44,7 +45,7 @@ class StudentController extends Controller
             'last_name'     =>  $request->get('last_name')
         ]);
         $student->save();
-        return redirect()->route('student.create')->with('success', 'Data Added');
+        return redirect()->route('student.index')->with('success', 'Data Added');
     }
 
     /**
@@ -66,7 +67,11 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+//        $student = Student::find($id);
+//        return view('student.edit', compact('student', 'id'));
+        $student = Student::find($id);
+        return view('student.edit', compact('student', 'id'));
+//        return view('student.edit',compact('student'));
     }
 
     /**
@@ -78,7 +83,15 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+           'first_name' => 'required',
+            'last_name' => 'required'
+        ]);
+        $student = Student::find($id);
+        $student->first_name=$request->get('first_name');
+        $student->last_name=$request->get('last_name');
+        $student->save();
+        return redirect()->route('student.index')->with('success', 'Data Updated');
     }
 
     /**
@@ -89,6 +102,8 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $student = Student::find($id);
+        $student->delete();
+        return redirect()->route('student.index')->with('success', 'Data Deleted');
     }
 }

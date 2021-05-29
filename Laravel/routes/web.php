@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\AjaxDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,6 @@ Route::get('/', function () {
 });
 
 Route::resource('student', StudentController::class);
+
+Route::get('ajaxdata', [AjaxDataController::class, 'index'])->name('ajaxdata');
+Route::get('ajaxdata/getdata', [AjaxDataController::class, 'getdata'])->name('ajaxdata.getdata');

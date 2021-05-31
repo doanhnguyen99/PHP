@@ -25,3 +25,4 @@ Route::get('ajaxdata', [AjaxDataController::class, 'index'])->name('ajaxdata');
 Route::get('ajaxdata/getdata', [AjaxDataController::class, 'getdata'])->name('ajaxdata.getdata');
 
 Route::post('ajaxdata/postdata', [AjaxDataController::class, 'postdata'])->name('ajaxdata.postdata');
+Route::get('ajaxdata/fetchdata', [AjaxDataController::class, 'fetchdata'])->name('ajaxdata.fetchdata');

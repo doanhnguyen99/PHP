@@ -16,8 +16,12 @@ class AjaxDataController extends Controller
 
     function getdata()
     {
-        $people = People::select('first_name', 'last_name');
-        return Datatables::of($people)->make(true);
+        $people = People::select('id', 'first_name', 'last_name');
+        return Datatables::of($people)
+            ->addColumn('action', function($people){
+                return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$people->id.'"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+            })
+            ->make(true);
     }
 
     function postdata(Request $request)
@@ -35,8 +39,7 @@ class AjaxDataController extends Controller
             {
                 $error_array[] = $messages;
             }
-        }
-        else
+        } else
         {
             if($request->get('button_action') == "insert")
             {
@@ -47,10 +50,28 @@ class AjaxDataController extends Controller
                 $people->save();
                 $success_output = '<div class="alert alert-success">Data Inserted</div>';
             }
+
+            if($request->get('button_action') == "update"){
+                $people = People::find($request->get('people_id'));
+                $people->first_name = $request->get('first_name');
+                $people->last_name = $request->get('last_name');
+                $people->save();
+                $success_output = '<div class="alert alert-success">Data Updated</div>';
+            }
         }
         $output = array(
             'error'     =>  $error_array,
             'success'   =>  $success_output
+        );
+        echo json_encode($output);
+    }
+
+    function fetchdata(Request $request){
+        $id = $request->input('id');
+        $people = People::find($id);
+        $output = array(
+            'first_name' => $people->first_name,
+            'last_name' => $people->last_name
         );
         echo json_encode($output);
     }

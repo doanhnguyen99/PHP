@@ -26,3 +26,4 @@ Route::get('ajaxdata/getdata', [AjaxDataController::class, 'getdata'])->name('aj
 
 Route::post('ajaxdata/postdata', [AjaxDataController::class, 'postdata'])->name('ajaxdata.postdata');
 Route::get('ajaxdata/fetchdata', [AjaxDataController::class, 'fetchdata'])->name('ajaxdata.fetchdata');
+Route::get('ajaxdata/removedata', [AjaxDataController::class, 'removedata'])->name('ajaxdata.removedata');

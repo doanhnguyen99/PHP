@@ -31,7 +31,7 @@
     </table>
 </div>
 
-<div id="studentModal" class="modal fade" role="dialog">
+<div id="peopleModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post" id="people_form">
@@ -76,11 +76,12 @@
         });
 
         $('#add_data').click(function(){
-            $('#studentModal').modal('show');
+            $('#peopleModal').modal('show');
             $('#people_form')[0].reset();
             $('#form_output').html('');
             $('#button_action').val('insert');
             $('#action').val('Add');
+            $('.modal-title').text('Add Data');
         });
 
         $('#people_form').on('submit', function(event){
@@ -109,7 +110,7 @@
                         $('#action').val('Add');
                         $('.modal-title').text('Add Data');
                         $('#button_action').val('insert');
-                        $('#student_table').DataTable().ajax.reload();
+                        $('#people_table').DataTable().ajax.reload();
                     }
                 }
             })
@@ -128,12 +129,29 @@
                     $('#first_name').val(data.first_name);
                     $('#last_name').val(data.last_name);
                     $('#people_id').val(id);
-                    $('#studentModal').modal('show');
+                    $('#peopleModal').modal('show');
                     $('#action').val('Edit');
                     $('.modal-title').text('Edit Data');
                     $('#button_action').val('update');
                 }
             })
+        });
+
+        $(document).on('click', '.delete', function (){
+            var id = $(this).attr('id');
+            if (confirm("Are you sure you want to Delete this data?")){
+                $.ajax({
+                    url: "{{route('ajaxdata.removedata')}}",
+                    method: 'get',
+                    data: {id: id},
+                    success: function (data){
+                        alert(data);
+                        $('#people_table').DataTable().ajax.reload();
+                    }
+                })
+            }else {
+                return false;
+            }
         });
 
         // $('#action').click(function () {

@@ -19,7 +19,9 @@ class AjaxDataController extends Controller
         $people = People::select('id', 'first_name', 'last_name');
         return Datatables::of($people)
             ->addColumn('action', function($people){
-                return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$people->id.'"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$people->id.'"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                        <a href="#" class="btn btn-xs btn-danger delete" id="'.$people->id.'"><i class="glyphicon glyphicon-remove"></i> Delete</a>';
+
             })
             ->make(true);
     }
@@ -74,5 +76,12 @@ class AjaxDataController extends Controller
             'last_name' => $people->last_name
         );
         echo json_encode($output);
+    }
+
+    function removedata(Request $request){
+        $people = People::find($request->input('id'));
+        if($people->delete()){
+            echo 'Data deleted';
+        }
     }
 }

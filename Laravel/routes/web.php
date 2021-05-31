@@ -23,3 +23,5 @@ Route::resource('student', StudentController::class);
 
 Route::get('ajaxdata', [AjaxDataController::class, 'index'])->name('ajaxdata');
 Route::get('ajaxdata/getdata', [AjaxDataController::class, 'getdata'])->name('ajaxdata.getdata');
+
+Route::post('ajaxdata/postdata', [AjaxDataController::class, 'postdata'])->name('ajaxdata.postdata');

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AjaxDataController;
+use App\Http\Controllers\UploadfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,7 @@ Route::get('ajaxdata/getdata', [AjaxDataController::class, 'getdata'])->name('aj
 Route::post('ajaxdata/postdata', [AjaxDataController::class, 'postdata'])->name('ajaxdata.postdata');
 Route::get('ajaxdata/fetchdata', [AjaxDataController::class, 'fetchdata'])->name('ajaxdata.fetchdata');
 Route::get('ajaxdata/removedata', [AjaxDataController::class, 'removedata'])->name('ajaxdata.removedata');
+
+# Upload File
+Route::get('/uploadfile', [UploadfileController::class, 'index']);
+Route::post('/uploadfile/upload', [UploadfileController::class, 'upload'])->name('uploadfile.upload');

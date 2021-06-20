@@ -11,4 +11,14 @@ class User extends Model implements Authenticatable
 {
     use HasFactory;
     use AuthenticableTrait;
+    protected $fillable = ['name', 'email', 'password', 'remember_token'];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
 }

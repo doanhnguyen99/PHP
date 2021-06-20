@@ -53,6 +53,7 @@
             <input type="submit" name="login" class="btn btn-primary" value="Login" />
         </div>
     </form>
+    <a href="{{route('register')}}">Register</a>
 </div>
 </body>
 </html>

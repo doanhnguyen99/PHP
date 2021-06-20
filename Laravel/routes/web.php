@@ -5,6 +5,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AjaxDataController;
 use App\Http\Controllers\UploadfileController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\RegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,15 @@ Route::get('ajaxdata/removedata', [AjaxDataController::class, 'removedata'])->na
 # Upload File
 Route::get('/uploadfile', [UploadfileController::class, 'index']);
 Route::post('/uploadfile/upload', [UploadfileController::class, 'upload'])->name('uploadfile.upload');
+
+# Register
+//Route::get('register', function (){
+//    return view('registration.create');
+//});
+
+Route::get('register', [RegistrationController::class, 'index'])->name('register');
+
+Route::post('register/create', [RegistrationController::class, 'create'])->name('register.create');
 
 # Login
 Route::get('/main', [MainController::class, 'index']);
